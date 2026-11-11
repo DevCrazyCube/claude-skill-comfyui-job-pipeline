@@ -1,0 +1,43 @@
+{
+  "id": "txt2img-basic",
+  "version": 1,
+  "service": "image",
+  "provider": "comfyui",
+  "workflow": "txt2img-basic.workflow.json",
+  "inputs": {
+    "prompt": {
+      "type": "text",
+      "required": true,
+      "to": [{"node": "2", "class_type": "CLIPTextEncode", "input": "text"}]
+    },
+    "avoid": {
+      "type": "text",
+      "to": [{"node": "3", "class_type": "CLIPTextEncode", "input": "text"}]
+    },
+    "shape": {
+      "type": "choice",
+      "default": "square",
+      "choices": {
+        "square": {"width": 768, "height": 768},
+        "portrait": {"width": 576, "height": 1024},
+        "landscape": {"width": 1024, "height": 576}
+      },
+      "to": [
+        {"node": "4", "class_type": "EmptyLatentImage", "input": "width", "key": "width"},
+        {"node": "4", "class_type": "EmptyLatentImage", "input": "height", "key": "height"}
+      ]
+    },
+    "quality": {
+      "type": "choice",
+      "default": "normal",
+      "choices": {"draft": 10, "normal": 20, "high": 32},
+      "to": [{"node": "5", "class_type": "KSampler", "input": "steps"}]
+    },
+    "seed": {
+      "type": "int",
+      "default": 1,
+      "to": [{"node": "5", "class_type": "KSampler", "input": "seed"}]
+    }
+  },
+  "output": {"node": "7", "class_type": "SaveImage"}
+}

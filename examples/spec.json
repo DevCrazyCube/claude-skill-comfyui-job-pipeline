@@ -1,0 +1,9 @@
+{
+  "service": "image",
+  "inputs": {
+    "prompt": "a red bicycle against a brick wall, overcast",
+    "shape": "portrait",
+    "quality": "draft",
+    "seed": 42
+  }
+}
